@@ -32,7 +32,7 @@ This is the final project in Developing Data Products course. It has two parts: 
 
 This application uses the dataset "ToothGrowth" in RStudio. This dataset stores the length of the teeth growth as a criterion of vitamin C intake of the guinea pig. There are 60 observations and 3 variables:
 
-```{r, eval=TRUE, comment=""}
+```{r, eval=TRUE, comment="", echo=TRUE}
 head(ToothGrowth)
 ```
 
