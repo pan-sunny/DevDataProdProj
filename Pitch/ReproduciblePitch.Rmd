@@ -40,7 +40,7 @@ head(ToothGrowth)
 
 1.Choose the plot Data:
 
-- Select dose level of the supplement from the dropdown box
+- Select the supplement dose level from the dropdown box
 - Choose the supplement delivery method in the radio buttons
 
 2.The ouput figure:
