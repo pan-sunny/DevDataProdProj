@@ -1,0 +1,70 @@
+---
+title: "Developing Data Products Week4 Project"
+author: "Sunny Pan"
+date: "April 15, 2021"
+output: ioslides_presentation
+---
+
+<style type="text/css">
+body, td {
+   font-size: 15px;
+}
+code.r{
+  font-size: 15px;
+}
+pre {
+  font-size: 15px
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+This is the final project in Developing Data Products course. It has two parts: a shiny application and a reproducible pitch presentation. This shiny application will show the effect of vitamin C on tooth growth in Guinea pigs by different supplement dose and supplement delivery methods. 
+
+- The Shiny App: <https://pan-sunny.shinyapps.io/ToothGrowthbyVC/>
+- The Source Code:<https://github.com/pan-sunny/DevDataProdProj>
+
+## The Data
+
+This application uses the dataset "ToothGrowth" in RStudio. This dataset stores the length of the teeth growth as a criterion of vitamin C intake of the guinea pig. There are 60 observations and 3 variables:
+
+```{r, eval=TRUE, comment=""}
+head(ToothGrowth)
+```
+
+## How it works
+
+1.Choose the plot Data:
+
+- Select dose level of the supplement from the dropdown box
+- Choose the supplement delivery method in the radio buttons
+
+2.The ouput figure:
+
+- The bar char will automatically generate accordingly
+- The supplement dose will transform from milligram to gram
+
+## The sample plot
+*Choose plot data: dose="" and delivery method is "Both"*
+
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+library(shiny)
+library(dplyr)
+library(ggplot2)
+options(scipen = 200)
+mydata <- ToothGrowth
+vcDose <- ""
+vcType <- c("OJ", "VC")
+mydata <- mydata %>% filter(supp %in% vcType) %>% group_by(dose, supp) %>% summarise(meanLen = mean(len))
+xlab <- "Supplement Vitamin C Dose (milligrams/day)"
+ylab <- "ToothGrowth Length"
+main <- "The Effect of VitaminC on ToothGrowth in Guinea Pigs"
+ggplot(mydata, aes(x=as.factor(dose), y=meanLen, fill=supp))+
+        geom_bar(stat = "identity", width=0.5, position = "dodge")+
+        labs(x = xlab,y = ylab, title = main)+
+        geom_text(aes(label = meanLen),position=position_dodge(width = 0.5),size = 3,vjust = -0.25)
+```
